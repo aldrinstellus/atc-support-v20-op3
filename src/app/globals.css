@@ -41,9 +41,9 @@ body > div[style*="z-index: 2147483647"] {
     --popover: 240 5% 10%;
     --popover-foreground: 0 0% 91%;
 
-    /* Sana Neon Lime - Primary Brand Color */
-    --primary: 72 100% 50%;
-    --primary-foreground: 240 6% 7%;
+    /* Teal Primary - WCAG 2.1 AA Compliant */
+    --primary: 168 64% 51%;
+    --primary-foreground: 173 61% 10%;
 
     --secondary: 240 5% 12%;
     --secondary-foreground: 0 0% 91%;
@@ -67,16 +67,16 @@ body > div[style*="z-index: 2147483647"] {
 
     --border: 240 5% 18%;
     --input: 240 5% 18%;
-    --ring: 72 100% 50%;
+    --ring: 168 64% 51%;
 
     /* Sana Brand Colors */
-    --sana-neon: 72 100% 50%;
+    --sana-neon: 168 64% 51%;
     --sana-royal: 220 100% 48%;
     --sana-fuschia: 320 98% 47%;
     --sana-midnight: 226 74% 10%;
 
-    /* Chart Colors - Sana Palette (Dark) */
-    --chart-1: 72 100% 50%;
+    /* Chart Colors - Teal Palette (Dark) */
+    --chart-1: 168 64% 51%;
     --chart-2: 220 100% 55%;
     --chart-3: 320 98% 55%;
     --chart-4: 38 92% 60%;
@@ -94,7 +94,7 @@ body > div[style*="z-index: 2147483647"] {
     --radius: 0.5rem;
   }
 
-  /* Light mode override (optional) */
+  /* Light mode override - WCAG 2.1 AA Compliant */
   .light {
     --background: 0 0% 100%;
     --foreground: 200 10% 10%;
@@ -105,8 +105,9 @@ body > div[style*="z-index: 2147483647"] {
     --popover: 0 0% 98%;
     --popover-foreground: 200 10% 10%;
 
-    --primary: 72 100% 50%;
-    --primary-foreground: 200 10% 8%;
+    /* Teal-600 for light mode - 4.5:1 contrast on white */
+    --primary: 172 66% 29%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 96%;
     --secondary-foreground: 200 10% 20%;
@@ -114,8 +115,8 @@ body > div[style*="z-index: 2147483647"] {
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 72 100% 50%;
-    --accent-foreground: 200 10% 8%;
+    --accent: 172 66% 29%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -130,10 +131,10 @@ body > div[style*="z-index: 2147483647"] {
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 72 100% 50%;
+    --ring: 172 66% 29%;
 
     /* Chart Colors - Light Mode */
-    --chart-1: 72 100% 50%;
+    --chart-1: 172 66% 29%;
     --chart-2: 220 100% 48%;
     --chart-3: 320 98% 47%;
     --chart-4: 38 92% 50%;
@@ -220,9 +221,9 @@ body > div[style*="z-index: 2147483647"] {
     display: block;
   }
 
-  /* Sana Gradients */
+  /* Teal Gradients */
   .gradient-primary {
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(72 100% 60%));
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(168 64% 60%));
   }
 
   .gradient-success {
@@ -237,16 +238,16 @@ body > div[style*="z-index: 2147483647"] {
     background: linear-gradient(135deg, hsl(var(--destructive)), hsl(0 84% 50%));
   }
 
-  /* Sana Neon Glow Effect */
+  /* Teal Glow Effect */
   .glow-neon {
-    box-shadow: 0 0 20px hsl(72 100% 50% / 0.3),
-                0 0 40px hsl(72 100% 50% / 0.2),
-                0 0 60px hsl(72 100% 50% / 0.1);
+    box-shadow: 0 0 20px hsl(168 64% 51% / 0.3),
+                0 0 40px hsl(168 64% 51% / 0.2),
+                0 0 60px hsl(168 64% 51% / 0.1);
   }
 
   .glow-neon-sm {
-    box-shadow: 0 0 10px hsl(72 100% 50% / 0.2),
-                0 0 20px hsl(72 100% 50% / 0.1);
+    box-shadow: 0 0 10px hsl(168 64% 51% / 0.2),
+                0 0 20px hsl(168 64% 51% / 0.1);
   }
 
   /* Animation Classes */
@@ -482,7 +483,7 @@ body > div[style*="z-index: 2147483647"] {
   }
 
   .sana-btn-primary:hover {
-    background: hsl(72 100% 45%);
+    background: hsl(168 64% 45%);
   }
 
   .sana-btn-secondary {
@@ -587,10 +588,10 @@ body > div[style*="z-index: 2147483647"] {
   /* #1e1f20 popover */
   --popover: 220 4% 12%;
   --popover-foreground: 0 0% 91%;
-  /* #cdfe00 primary - Sana Neon Lime */
-  --primary: 72 100% 50%;
-  /* Dark text on neon */
-  --primary-foreground: 240 6% 7%;
+  /* Teal-400 primary - WCAG 2.1 AA Compliant */
+  --primary: 168 64% 51%;
+  /* Dark text on teal */
+  --primary-foreground: 173 61% 10%;
   /* #242628 secondary hover */
   --secondary: 216 5% 15%;
   --secondary-foreground: 0 0% 91%;
@@ -608,10 +609,10 @@ body > div[style*="z-index: 2147483647"] {
   /* Border - subtle dark */
   --border: 220 4% 18%;
   --input: 220 4% 18%;
-  /* #cdfe00 ring */
-  --ring: 72 100% 50%;
-  /* Charts - Sana brand palette */
-  --chart-1: 72 100% 50%;
+  /* Teal ring */
+  --ring: 168 64% 51%;
+  /* Charts - Teal brand palette */
+  --chart-1: 168 64% 51%;
   --chart-2: 220 100% 48%;
   --chart-3: 320 98% 47%;
   --chart-4: 38 92% 50%;
@@ -619,12 +620,12 @@ body > div[style*="z-index: 2147483647"] {
   /* Sidebar - same as card */
   --sidebar: 220 4% 12%;
   --sidebar-foreground: 0 0% 91%;
-  --sidebar-primary: 72 100% 50%;
-  --sidebar-primary-foreground: 240 6% 7%;
+  --sidebar-primary: 168 64% 51%;
+  --sidebar-primary-foreground: 173 61% 10%;
   --sidebar-accent: 240 2% 21%;
   --sidebar-accent-foreground: 0 0% 91%;
   --sidebar-border: 220 4% 18%;
-  --sidebar-ring: 72 100% 50%;
+  --sidebar-ring: 168 64% 51%;
   --destructive-foreground: 0 0% 100%;
   --font-sans: Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-serif: Georgia, serif;
@@ -650,7 +651,7 @@ body > div[style*="z-index: 2147483647"] {
 
 /*---break--- */
 
-/* Light mode override - optional */
+/* Light mode override - WCAG 2.1 AA Compliant */
 .light {
   /* Light mode - white background */
   --background: 0 0% 100%;
@@ -659,32 +660,33 @@ body > div[style*="z-index: 2147483647"] {
   --card-foreground: 200 10% 10%;
   --popover: 0 0% 98%;
   --popover-foreground: 200 10% 10%;
-  --primary: 72 100% 50%;
-  --primary-foreground: 200 10% 8%;
+  /* Teal-600 for light mode - 4.5:1 contrast on white */
+  --primary: 172 66% 29%;
+  --primary-foreground: 0 0% 100%;
   --secondary: 0 0% 96%;
   --secondary-foreground: 200 10% 20%;
   --muted: 0 0% 96%;
   --muted-foreground: 0 0% 45%;
-  --accent: 72 100% 50%;
-  --accent-foreground: 200 10% 8%;
+  --accent: 172 66% 29%;
+  --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --success: 142 76% 36%;
   --border: 0 0% 90%;
   --input: 0 0% 90%;
-  --ring: 72 100% 50%;
-  --chart-1: 72 100% 50%;
+  --ring: 172 66% 29%;
+  --chart-1: 172 66% 29%;
   --chart-2: 220 100% 48%;
   --chart-3: 320 98% 47%;
   --chart-4: 38 92% 50%;
   --chart-5: 142 76% 36%;
   --sidebar: 0 0% 98%;
   --sidebar-foreground: 200 10% 10%;
-  --sidebar-primary: 72 100% 50%;
-  --sidebar-primary-foreground: 200 10% 8%;
+  --sidebar-primary: 172 66% 29%;
+  --sidebar-primary-foreground: 0 0% 100%;
   --sidebar-accent: 0 0% 94%;
   --sidebar-accent-foreground: 200 10% 10%;
   --sidebar-border: 0 0% 90%;
-  --sidebar-ring: 72 100% 50%;
+  --sidebar-ring: 172 66% 29%;
   --destructive-foreground: 0 0% 100%;
   --shadow-color: hsl(0 0% 0%);
   --shadow-opacity: 0.1;
@@ -712,12 +714,7 @@ body > div[style*="z-index: 2147483647"] {
     @apply bg-background text-foreground;
   }
 
-  /* Light mode contrast fix: Use darker green for text-primary to meet WCAG AA (4.5:1) */
-  /* Lime green (#CDFE00) has only 1.4:1 contrast on white - needs darker variant for text */
-  .light .text-primary,
-  .light [class*="text-primary"] {
-    color: hsl(85 100% 25%) !important; /* Dark green #3D7A00 - 5.5:1 contrast ratio */
-  }
+  /* Note: WCAG workaround removed - Teal-600 (#0d9488) now has 4.5:1 contrast natively */
 
   /* Smooth color transitions for theming */
   *:where(

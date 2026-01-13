@@ -30,14 +30,14 @@
     "description": "Popover text - hsl(0 0% 91%)"
   },
   "primary": {
-    "value": "#cbff00",
+    "value": "#2dd4bf",
     "type": "color",
-    "description": "Primary action - hsl(72 100% 50%)"
+    "description": "Primary action - Teal-400 hsl(168 64% 51%)"
   },
   "primary-foreground": {
-    "value": "#101012",
+    "value": "#042f2e",
     "type": "color",
-    "description": "Text on primary - hsl(240 6% 7%)"
+    "description": "Text on primary - Teal-950 hsl(173 61% 10%)"
   },
   "secondary": {
     "value": "#242528",
@@ -95,9 +95,9 @@
     "description": "Input border - hsl(220 4% 18%)"
   },
   "ring": {
-    "value": "#cbff00",
+    "value": "#2dd4bf",
     "type": "color",
-    "description": "Focus ring - hsl(72 100% 50%)"
+    "description": "Focus ring - Teal-400 hsl(168 64% 51%)"
   },
   "sidebar": {
     "value": "#1d1e1f",
@@ -110,14 +110,14 @@
     "description": "Sidebar text - hsl(0 0% 91%)"
   },
   "sidebar-primary": {
-    "value": "#cbff00",
+    "value": "#2dd4bf",
     "type": "color",
-    "description": "Sidebar primary - hsl(72 100% 50%)"
+    "description": "Sidebar primary - Teal-400 hsl(168 64% 51%)"
   },
   "sidebar-primary-foreground": {
-    "value": "#101012",
+    "value": "#042f2e",
     "type": "color",
-    "description": "Sidebar primary text - hsl(240 6% 7%)"
+    "description": "Sidebar primary text - Teal-950 hsl(173 61% 10%)"
   },
   "sidebar-accent": {
     "value": "#343436",
@@ -135,8 +135,8 @@
     "description": "Sidebar border - hsl(220 4% 18%)"
   },
   "sidebar-ring": {
-    "value": "#cbff00",
+    "value": "#2dd4bf",
     "type": "color",
-    "description": "Sidebar focus ring - hsl(72 100% 50%)"
+    "description": "Sidebar focus ring - Teal-400 hsl(168 64% 51%)"
   }
 }

@@ -554,9 +554,9 @@
   },
   "chart": {
     "1": {
-      "value": "#cbff00",
+      "value": "#2dd4bf",
       "type": "color",
-      "description": "Chart color 1 - Neon Lime"
+      "description": "Chart color 1 - Teal-400"
     },
     "2": {
       "value": "#0051f4",
