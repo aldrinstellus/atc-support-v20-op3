@@ -166,6 +166,7 @@ Start here in order:
 - **[CHANGELOG.md](./15-reference/CHANGELOG.md)** - Version history and changes
 - **[PRODUCTION-SCORECARD.md](./15-reference/PRODUCTION-SCORECARD.md)** - 100/100 production score details
 - **[FAQ.md](./15-reference/FAQ.md)** - Frequently asked questions
+- **[PERSONA-WIDGET-KNOWLEDGE-BASE.md](./15-reference/PERSONA-WIDGET-KNOWLEDGE-BASE.md)** - **V20-OP3** Complete reference: 10 personas, 19 widgets, query patterns, Quick Actions across all 3 modes
 
 ---
 
