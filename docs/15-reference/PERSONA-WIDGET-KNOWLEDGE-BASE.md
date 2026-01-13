@@ -12,12 +12,13 @@
 2. [Mode Architecture](#mode-architecture)
 3. [Persona Reference](#persona-reference)
 4. [Widget Catalog](#widget-catalog)
-5. [Query Detection Patterns](#query-detection-patterns)
-6. [Quick Actions Reference](#quick-actions-reference)
-7. [Cross-Reference Matrix](#cross-reference-matrix)
-8. [URL Reference](#url-reference)
-9. [Technical Implementation](#technical-implementation)
-10. [Troubleshooting](#troubleshooting)
+5. [Universal Query Patterns](#universal-query-patterns)
+6. [Query Detection Patterns](#query-detection-patterns)
+7. [Quick Actions Reference](#quick-actions-reference)
+8. [Cross-Reference Matrix](#cross-reference-matrix)
+9. [URL Reference](#url-reference)
+10. [Technical Implementation](#technical-implementation)
+11. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -41,6 +42,7 @@
 ┌─────────────────────────────────────────────────────────────┐
 │                   QUERY DETECTION                           │
 │    User input → Pattern matching → Widget selection         │
+│    (Includes 4 Universal Patterns for all personas)         │
 └─────────────────────────────────────────────────────────────┘
                             │
                             ▼
@@ -55,7 +57,8 @@
 1. **Role-Based Access Control (RBAC)**: Each persona sees only what's relevant to their role
 2. **Dynamic Content**: Same query returns different widgets based on persona context
 3. **Query Detection**: Pattern matching determines which widget to render
-4. **Persistent State**: Conversations persist per-persona in localStorage
+4. **Universal Patterns**: 4 common queries work across ALL personas in ALL modes
+5. **Persistent State**: Conversations persist per-persona in localStorage
 
 ---
 
@@ -339,17 +342,17 @@
 
 ## Widget Catalog
 
-### Full Widget List (19 Widgets)
+### Full Widget List (19+ Widgets)
 
 | Widget | Primary Personas | Trigger Queries |
 |--------|------------------|-----------------|
 | **Executive Summary** | Executive, COR | "executive summary", "key metrics", "overview" |
 | **ATC Executive Summary** | Executive | "atc summary", "business metrics" |
 | **Agent Performance Stats** | Manager | "agent stats", "performance stats" |
-| **Agent Performance Comparison** | Manager | "compare agents", "team performance", "agent comparison" |
+| **Agent Performance Comparison** | Manager, ALL (universal) | "compare agents", "team performance", "top performers" |
 | **Team Workload Dashboard** | Manager, Team Lead | "team workload", "workload distribution", "capacity" |
-| **Ticket Detail** | Support Agent | "ticket #", "show ticket", "ticket details" |
-| **Ticket List** | Support Agent | "my tickets", "open tickets", "ticket list" |
+| **Ticket Detail** | Support Agent, ALL (universal) | "ticket #", "show ticket", "urgent issue", "access issue" |
+| **Ticket List** | Support Agent, ALL (universal) | "my tickets", "open tickets", "end user request" |
 | **Live Zoho Desk Tickets** | Support Agent | "live tickets", "zoho tickets", "desk tickets" |
 | **Similar Tickets Analysis** | Support Agent | "similar tickets", "related tickets" |
 | **Customer Risk Profile** | CSM, Manager | "customer risk", "risk profile", "churn risk" |
@@ -357,7 +360,7 @@
 | **Client Health Dashboard** | CSM | "customer health", "health scores", "client health" |
 | **Knowledge Article** | Support Agent | "knowledge base", "kb article", "help article" |
 | **Knowledge Base Search** | All | "search kb", "find article", "knowledge search" |
-| **Response Composer** | Support Agent | "draft response", "compose reply", "write response" |
+| **Response Composer** | Support Agent, ALL (universal) | "draft response", "compose reply", "draft outage" |
 | **Message Composer** | Support Agent | "compose message", "write email" |
 | **Call Prep Notes** | CSM, Support Agent | "call prep", "meeting prep", "customer call" |
 | **SLA Performance Chart** | Manager, Executive | "sla performance", "sla metrics", "compliance" |
@@ -369,15 +372,141 @@
 
 ---
 
+## Universal Query Patterns
+
+### Overview
+
+These 4 queries work on **ANY persona** in **ANY mode** (Government, Project, ATC). They were added based on stakeholder feedback to ensure consistent functionality across the entire application.
+
+### The 4 Universal Patterns
+
+| # | Query Example | Widget Returned | Use Case |
+|---|---------------|-----------------|----------|
+| 1 | "who are my top performers" | Agent Performance Comparison | View team performance rankings |
+| 2 | "draft response to all user about the outage" | Response Composer | Create communications |
+| 3 | "open the most urgent access issue from Acme" | Ticket Detail | View urgent ticket details |
+| 4 | "show me the latest end user request" | Ticket List | Browse user requests/tickets |
+
+### Pattern 1: Top Performers / Performance Comparison
+
+**Widget**: `agent-performance-comparison`
+
+**Trigger Phrases**:
+- "top performers"
+- "bottom performers"
+- "who are my top"
+- "who are my best"
+- "performance comparison"
+- "compare performance"
+
+**Sample Queries**:
+```
+"Who are my top performers?"
+"Show me the bottom performers this week"
+"Compare performance across my team"
+"Who are my best agents?"
+```
+
+---
+
+### Pattern 2: Response Composition
+
+**Widget**: `response-composer`
+
+**Trigger Phrases**:
+- "draft response"
+- "draft a response"
+- "compose response"
+- "help me respond"
+- "draft message"
+- "draft" + "outage"
+
+**Sample Queries**:
+```
+"Draft response to all users about the outage"
+"Help me respond to this customer complaint"
+"Compose response for the stakeholder update"
+"Draft a response to the team about the system maintenance"
+```
+
+---
+
+### Pattern 3: Urgent Issues / Ticket Detail
+
+**Widget**: `ticket-detail`
+
+**Trigger Phrases**:
+- "urgent"
+- "access issue"
+- "most urgent"
+- "open" + "issue"
+
+**Sample Queries**:
+```
+"Open the most urgent access issue from Acme"
+"Show me the urgent tickets"
+"What's the most urgent issue right now?"
+"Open the access issue for Johnson Corp"
+```
+
+---
+
+### Pattern 4: End User Requests / Ticket List
+
+**Widget**: `ticket-list`
+
+**Trigger Phrases**:
+- "end user request"
+- "user request"
+- "latest request"
+- "recent tickets"
+- "my tickets"
+- "show me tickets"
+
+**Sample Queries**:
+```
+"Show me the latest end user request"
+"What are the recent tickets?"
+"Show me my tickets"
+"List user requests from this week"
+```
+
+---
+
+### Universal Patterns Testing Matrix
+
+| Persona | Pattern 1 (Performers) | Pattern 2 (Response) | Pattern 3 (Urgent) | Pattern 4 (Requests) |
+|---------|------------------------|----------------------|--------------------|--------------------|
+| COR | ✓ | ✓ | ✓ | ✓ |
+| Gov Program Manager | ✓ | ✓ | ✓ | ✓ |
+| Stakeholder Lead | ✓ | ✓ | ✓ | ✓ |
+| Project Manager | ✓ | ✓ | ✓ | ✓ |
+| Service Team Lead | ✓ | ✓ | ✓ | ✓ |
+| Service Team Member | ✓ | ✓ | ✓ | ✓ |
+| ATC Executive | ✓ | ✓ | ✓ | ✓ |
+| ATC Manager | ✓ | ✓ | ✓ | ✓ |
+| ATC Support | ✓ | ✓ | ✓ | ✓ |
+| ATC CSM | ✓ | ✓ | ✓ | ✓ |
+
+**All 10 personas verified working as of January 13, 2026**
+
+---
+
 ## Query Detection Patterns
 
 ### How Query Detection Works
 
 ```
-User Input → Tokenization → Pattern Matching → Persona Filter → Widget Selection
+User Input → Tokenization → Pattern Matching → Universal Check → Persona Filter → Widget Selection
 ```
 
-### Pattern Categories
+### Pattern Priority
+
+1. **Persona-Specific Patterns** - Checked first based on active persona
+2. **Universal Patterns** - 4 patterns that work across all personas
+3. **Default Fallback** - Persona-appropriate default widget
+
+### Persona-Specific Pattern Categories
 
 #### Ticket-Related Patterns
 ```javascript
@@ -446,6 +575,7 @@ patterns: [
 | **CS Manager** | "Agent performance", "Team comparison", "SLA breaches" |
 | **Support Agent** | "My tickets", "Show ticket #123", "Knowledge base" |
 | **CSM** | "Customer health", "Renewal pipeline", "Churn risk" |
+| **ALL** | "Who are my top performers", "Draft response about outage", "Most urgent issue", "Latest end user request" |
 
 ---
 
@@ -497,6 +627,15 @@ patterns: [
 | Client Health | - | - | - | - | - | - | - | - | - | ✓ |
 | Knowledge Base | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 
+### Universal Widgets (Available to ALL Personas)
+
+| Widget | Trigger | All 10 Personas |
+|--------|---------|-----------------|
+| **Agent Performance Comparison** | "top performers", "who are my best" | ✓ |
+| **Response Composer** | "draft response", "draft outage" | ✓ |
+| **Ticket Detail** | "urgent", "access issue" | ✓ |
+| **Ticket List** | "end user request", "latest request" | ✓ |
+
 ---
 
 ## URL Reference
@@ -505,6 +644,7 @@ patterns: [
 
 ```
 Base URL: http://localhost:3030
+Production: https://atc-support-v20-op3.vercel.app
 
 Government Mode:
 ├── /demo/cor                    → COR (Alexa Johnson)
@@ -538,23 +678,59 @@ ATC Mode:
 
 | File | Purpose |
 |------|---------|
-| `src/lib/query-detection.ts` | Query pattern matching and widget selection |
+| `src/lib/query-detection.ts` | Query pattern matching and widget selection (includes universal patterns) |
 | `src/config/personas.ts` | Persona definitions and configurations |
 | `src/components/widgets/WidgetRenderer.tsx` | Dynamic widget loading |
 | `src/data/demo-widget-data.ts` | Mock data for widgets |
 | `src/contexts/PersonaContext.tsx` | Persona state management |
 | `src/contexts/ConversationContext.tsx` | Conversation persistence |
 
+### Universal Pattern Implementation
+
+The 4 universal patterns are implemented in each persona detection function in `query-detection.ts`:
+
+```typescript
+// Universal patterns added to ALL 10 persona detection functions:
+// - detectCORQuery()
+// - detectProgramManagerQuery()
+// - detectStakeholderLeadQuery()
+// - detectProjectManagerQuery()
+// - detectServiceTeamLeadQuery()
+// - detectServiceTeamMemberQuery()
+// - detectATCExecutiveQuery()
+// - detectATCManagerQuery()
+// - detectATCSupportQuery()
+// - detectATCCSMQuery()
+
+// Example universal pattern block:
+// Top Performers / Performance Comparison (universal pattern)
+if (
+  q.includes('top performers') ||
+  q.includes('bottom performers') ||
+  q.includes('who are my top') ||
+  q.includes('who are my best') ||
+  q.includes('performance comparison') ||
+  q.includes('compare performance')
+) {
+  return {
+    widgetType: 'agent-performance-comparison',
+    widgetData: agentPerformanceComparisonDemo,
+    responseText: "Team performance comparison shows top and bottom performers:",
+  };
+}
+```
+
 ### Data Flow
 
 ```
 1. User types query in chat input
 2. Query sent to detection system (query-detection.ts)
-3. Patterns matched against query text
-4. Persona context filters available widgets
-5. Best matching widget selected
-6. Widget component rendered with demo data
-7. Response streamed with typewriter effect
+3. Persona-specific patterns checked first
+4. Universal patterns checked if no match
+5. Persona context filters available widgets
+6. Best matching widget selected
+7. Widget component rendered with demo data
+8. Response streamed with typewriter effect
 ```
 
 ### LocalStorage Keys
@@ -584,14 +760,16 @@ localStorage.setItem('eas-current-mode', 'atc');
 
 1. **Check query pattern**: Ensure query matches detection patterns
 2. **Verify persona context**: Some widgets are persona-specific
-3. **Clear localStorage**: Reset state if corrupted
-4. **Check console logs**: Look for `[InteractiveChat]` messages
+3. **Try universal query**: Use one of the 4 universal patterns
+4. **Clear localStorage**: Reset state if corrupted
+5. **Check console logs**: Look for `[InteractiveChat]` messages
 
 #### Wrong Widget Displayed
 
 1. **More specific query**: Add keywords that match desired widget
 2. **Check persona**: Ensure correct persona is active
 3. **Review pattern priority**: Some patterns have higher priority
+4. **Use exact phrases**: Universal patterns work best with exact phrases
 
 #### Persona Not Loading
 
@@ -615,6 +793,17 @@ localStorage.clear();
 location.reload();
 ```
 
+### Testing Universal Patterns
+
+Try these queries on ANY persona to verify universal patterns work:
+
+```
+1. "who are my top performers"      → Should show Agent Performance Comparison
+2. "draft response about the outage" → Should show Response Composer
+3. "open the most urgent issue"      → Should show Ticket Detail
+4. "show me the latest end user request" → Should show Ticket List
+```
+
 ---
 
 ## Version History
@@ -624,6 +813,35 @@ location.reload();
 | 2026-01-13 | V20-OP3 | Initial knowledge base creation |
 | 2026-01-13 | V20-OP3 | Teal color migration (WCAG 2.1 AA) |
 | 2026-01-13 | V20-OP3 | All 10 personas tested and verified |
+| 2026-01-13 | V20-OP3 | Added 4 universal query patterns based on stakeholder feedback |
+| 2026-01-13 | V20-OP3 | Universal patterns implemented across all 10 personas |
+
+---
+
+## Stakeholder Feedback Implementation
+
+### Original Issue (Jan 13, 2026)
+
+Stakeholder feedback identified 4 queries that were failing in Project mode (Service Team Lead):
+
+| Query | Expected | Actual (Before Fix) |
+|-------|----------|---------------------|
+| "who are my top performers" | Performance Comparison | Team Workload (wrong) |
+| "draft response about the outage" | Response Composer | Team Workload (wrong) |
+| "open the most urgent access issue" | Ticket Detail | Team Workload (wrong) |
+| "show me the latest end user request" | Ticket List | Team Workload (wrong) |
+
+### Resolution
+
+All 4 patterns were added as **universal patterns** to ALL 10 persona detection functions, ensuring consistent behavior regardless of which persona or mode is active.
+
+### Verification
+
+- All 4 queries tested on all 10 personas
+- All 4 queries verified on Vercel production
+- Type check: Passed
+- Build: Passed
+- Deployment: Successful
 
 ---
 

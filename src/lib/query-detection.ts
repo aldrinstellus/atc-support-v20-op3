@@ -1264,6 +1264,68 @@ function detectATCExecutiveQuery(q: string): QueryMatch | null {
     };
   }
 
+  // Top Performers / Performance Comparison (universal pattern)
+  if (
+    q.includes('top performers') ||
+    q.includes('bottom performers') ||
+    q.includes('who are my top') ||
+    q.includes('who are my best') ||
+    q.includes('performance comparison') ||
+    q.includes('compare performance')
+  ) {
+    return {
+      widgetType: 'agent-performance-comparison',
+      widgetData: agentPerformanceComparisonDemo,
+      responseText: "Team performance comparison shows top and bottom performers:",
+    };
+  }
+
+  // Response Composition (universal pattern)
+  if (
+    q.includes('draft response') ||
+    q.includes('draft a response') ||
+    q.includes('compose response') ||
+    q.includes('help me respond') ||
+    q.includes('draft message') ||
+    (q.includes('draft') && q.includes('outage'))
+  ) {
+    return {
+      widgetType: 'response-composer',
+      widgetData: responseComposerDemo,
+      responseText: "I've drafted a response for your review:",
+    };
+  }
+
+  // Urgent Issues / Access Issues (universal pattern)
+  if (
+    q.includes('urgent') ||
+    q.includes('access issue') ||
+    q.includes('most urgent') ||
+    (q.includes('open') && q.includes('issue'))
+  ) {
+    return {
+      widgetType: 'ticket-detail',
+      widgetData: ticketDetailDemo,
+      responseText: "Here are the details for the requested ticket:",
+    };
+  }
+
+  // End User Requests / Ticket List (universal pattern)
+  if (
+    q.includes('end user request') ||
+    q.includes('user request') ||
+    q.includes('latest request') ||
+    q.includes('recent tickets') ||
+    q.includes('my tickets') ||
+    q.includes('show me tickets')
+  ) {
+    return {
+      widgetType: 'ticket-list',
+      widgetData: ticketListDemo,
+      responseText: "Here are the latest end user requests:",
+    };
+  }
+
   // Fallback to generic C-Level detection for backward compatibility
   return detectCLevelQuery(q);
 }
@@ -1276,6 +1338,68 @@ function detectATCManagerQuery(q: string): QueryMatch | null {
       widgetType: atcMatch.widgetType as WidgetType,
       widgetData: atcMatch.widgetData ?? null,
       responseText: atcMatch.aiResponse,
+    };
+  }
+
+  // Top Performers / Performance Comparison (universal pattern)
+  if (
+    q.includes('top performers') ||
+    q.includes('bottom performers') ||
+    q.includes('who are my top') ||
+    q.includes('who are my best') ||
+    q.includes('performance comparison') ||
+    q.includes('compare performance')
+  ) {
+    return {
+      widgetType: 'agent-performance-comparison',
+      widgetData: agentPerformanceComparisonDemo,
+      responseText: "Team performance comparison shows top and bottom performers:",
+    };
+  }
+
+  // Response Composition (universal pattern)
+  if (
+    q.includes('draft response') ||
+    q.includes('draft a response') ||
+    q.includes('compose response') ||
+    q.includes('help me respond') ||
+    q.includes('draft message') ||
+    (q.includes('draft') && q.includes('outage'))
+  ) {
+    return {
+      widgetType: 'response-composer',
+      widgetData: responseComposerDemo,
+      responseText: "I've drafted a response for your review:",
+    };
+  }
+
+  // Urgent Issues / Access Issues (universal pattern)
+  if (
+    q.includes('urgent') ||
+    q.includes('access issue') ||
+    q.includes('most urgent') ||
+    (q.includes('open') && q.includes('issue'))
+  ) {
+    return {
+      widgetType: 'ticket-detail',
+      widgetData: ticketDetailDemo,
+      responseText: "Here are the details for the requested ticket:",
+    };
+  }
+
+  // End User Requests / Ticket List (universal pattern)
+  if (
+    q.includes('end user request') ||
+    q.includes('user request') ||
+    q.includes('latest request') ||
+    q.includes('recent tickets') ||
+    q.includes('my tickets') ||
+    q.includes('show me tickets')
+  ) {
+    return {
+      widgetType: 'ticket-list',
+      widgetData: ticketListDemo,
+      responseText: "Here are the latest end user requests:",
     };
   }
 
@@ -1294,6 +1418,68 @@ function detectATCSupportQuery(q: string): QueryMatch | null {
     };
   }
 
+  // Top Performers / Performance Comparison (universal pattern)
+  if (
+    q.includes('top performers') ||
+    q.includes('bottom performers') ||
+    q.includes('who are my top') ||
+    q.includes('who are my best') ||
+    q.includes('performance comparison') ||
+    q.includes('compare performance')
+  ) {
+    return {
+      widgetType: 'agent-performance-comparison',
+      widgetData: agentPerformanceComparisonDemo,
+      responseText: "Team performance comparison shows top and bottom performers:",
+    };
+  }
+
+  // Response Composition (universal pattern)
+  if (
+    q.includes('draft response') ||
+    q.includes('draft a response') ||
+    q.includes('compose response') ||
+    q.includes('help me respond') ||
+    q.includes('draft message') ||
+    (q.includes('draft') && q.includes('outage'))
+  ) {
+    return {
+      widgetType: 'response-composer',
+      widgetData: responseComposerDemo,
+      responseText: "I've drafted a response for your review:",
+    };
+  }
+
+  // Urgent Issues / Access Issues (universal pattern)
+  if (
+    q.includes('urgent') ||
+    q.includes('access issue') ||
+    q.includes('most urgent') ||
+    (q.includes('open') && q.includes('issue'))
+  ) {
+    return {
+      widgetType: 'ticket-detail',
+      widgetData: ticketDetailDemo,
+      responseText: "Here are the details for the requested ticket:",
+    };
+  }
+
+  // End User Requests / Ticket List (universal pattern)
+  if (
+    q.includes('end user request') ||
+    q.includes('user request') ||
+    q.includes('latest request') ||
+    q.includes('recent tickets') ||
+    q.includes('my tickets') ||
+    q.includes('show me tickets')
+  ) {
+    return {
+      widgetType: 'ticket-list',
+      widgetData: ticketListDemo,
+      responseText: "Here are the latest end user requests:",
+    };
+  }
+
   // Fallback to generic Support Agent detection for backward compatibility
   return detectAgentQuery(q);
 }
@@ -1306,6 +1492,68 @@ function detectATCCSMQuery(q: string): QueryMatch | null {
       widgetType: atcMatch.widgetType as WidgetType,
       widgetData: atcMatch.widgetData ?? null,
       responseText: atcMatch.aiResponse,
+    };
+  }
+
+  // Top Performers / Performance Comparison (universal pattern)
+  if (
+    q.includes('top performers') ||
+    q.includes('bottom performers') ||
+    q.includes('who are my top') ||
+    q.includes('who are my best') ||
+    q.includes('performance comparison') ||
+    q.includes('compare performance')
+  ) {
+    return {
+      widgetType: 'agent-performance-comparison',
+      widgetData: agentPerformanceComparisonDemo,
+      responseText: "Team performance comparison shows top and bottom performers:",
+    };
+  }
+
+  // Response Composition (universal pattern)
+  if (
+    q.includes('draft response') ||
+    q.includes('draft a response') ||
+    q.includes('compose response') ||
+    q.includes('help me respond') ||
+    q.includes('draft message') ||
+    (q.includes('draft') && q.includes('outage'))
+  ) {
+    return {
+      widgetType: 'response-composer',
+      widgetData: responseComposerDemo,
+      responseText: "I've drafted a response for your review:",
+    };
+  }
+
+  // Urgent Issues / Access Issues (universal pattern)
+  if (
+    q.includes('urgent') ||
+    q.includes('access issue') ||
+    q.includes('most urgent') ||
+    (q.includes('open') && q.includes('issue'))
+  ) {
+    return {
+      widgetType: 'ticket-detail',
+      widgetData: ticketDetailDemo,
+      responseText: "Here are the details for the requested ticket:",
+    };
+  }
+
+  // End User Requests / Ticket List (universal pattern)
+  if (
+    q.includes('end user request') ||
+    q.includes('user request') ||
+    q.includes('latest request') ||
+    q.includes('recent tickets') ||
+    q.includes('my tickets') ||
+    q.includes('show me tickets')
+  ) {
+    return {
+      widgetType: 'ticket-list',
+      widgetData: ticketListDemo,
+      responseText: "Here are the latest end user requests:",
     };
   }
 
@@ -1476,6 +1724,68 @@ function detectCORQuery(q: string): QueryMatch | null {
     };
   }
 
+  // Top Performers / Performance Comparison (universal pattern)
+  if (
+    q.includes('top performers') ||
+    q.includes('bottom performers') ||
+    q.includes('who are my top') ||
+    q.includes('who are my best') ||
+    q.includes('performance comparison') ||
+    q.includes('compare performance')
+  ) {
+    return {
+      widgetType: 'agent-performance-comparison',
+      widgetData: agentPerformanceComparisonDemo,
+      responseText: "Team performance comparison shows top and bottom performers:",
+    };
+  }
+
+  // Response Composition (universal pattern)
+  if (
+    q.includes('draft response') ||
+    q.includes('draft a response') ||
+    q.includes('compose response') ||
+    q.includes('help me respond') ||
+    q.includes('draft message') ||
+    (q.includes('draft') && q.includes('outage'))
+  ) {
+    return {
+      widgetType: 'response-composer',
+      widgetData: responseComposerDemo,
+      responseText: "I've drafted a response for your review:",
+    };
+  }
+
+  // Urgent Issues / Access Issues (universal pattern)
+  if (
+    q.includes('urgent') ||
+    q.includes('access issue') ||
+    q.includes('most urgent') ||
+    (q.includes('open') && q.includes('issue'))
+  ) {
+    return {
+      widgetType: 'ticket-detail',
+      widgetData: ticketDetailDemo,
+      responseText: "Here are the details for the requested ticket:",
+    };
+  }
+
+  // End User Requests / Ticket List (universal pattern)
+  if (
+    q.includes('end user request') ||
+    q.includes('user request') ||
+    q.includes('latest request') ||
+    q.includes('recent tickets') ||
+    q.includes('my tickets') ||
+    q.includes('show me tickets')
+  ) {
+    return {
+      widgetType: 'ticket-list',
+      widgetData: ticketListDemo,
+      responseText: "Here are the latest end user requests:",
+    };
+  }
+
   // Default: Show contract performance
   return {
     widgetType: 'contract-performance-dashboard',
@@ -1535,6 +1845,68 @@ function detectProgramManagerQuery(q: string): QueryMatch | null {
       widgetType: 'resource-capacity-dashboard',
       widgetData: resourceCapacityDemo,
       responseText: "Resource allocation across initiatives shows capacity and utilization:",
+    };
+  }
+
+  // Top Performers / Performance Comparison (universal pattern)
+  if (
+    q.includes('top performers') ||
+    q.includes('bottom performers') ||
+    q.includes('who are my top') ||
+    q.includes('who are my best') ||
+    q.includes('performance comparison') ||
+    q.includes('compare performance')
+  ) {
+    return {
+      widgetType: 'agent-performance-comparison',
+      widgetData: agentPerformanceComparisonDemo,
+      responseText: "Team performance comparison shows top and bottom performers:",
+    };
+  }
+
+  // Response Composition (universal pattern)
+  if (
+    q.includes('draft response') ||
+    q.includes('draft a response') ||
+    q.includes('compose response') ||
+    q.includes('help me respond') ||
+    q.includes('draft message') ||
+    (q.includes('draft') && q.includes('outage'))
+  ) {
+    return {
+      widgetType: 'response-composer',
+      widgetData: responseComposerDemo,
+      responseText: "I've drafted a response for your review:",
+    };
+  }
+
+  // Urgent Issues / Access Issues (universal pattern)
+  if (
+    q.includes('urgent') ||
+    q.includes('access issue') ||
+    q.includes('most urgent') ||
+    (q.includes('open') && q.includes('issue'))
+  ) {
+    return {
+      widgetType: 'ticket-detail',
+      widgetData: ticketDetailDemo,
+      responseText: "Here are the details for the requested ticket:",
+    };
+  }
+
+  // End User Requests / Ticket List (universal pattern)
+  if (
+    q.includes('end user request') ||
+    q.includes('user request') ||
+    q.includes('latest request') ||
+    q.includes('recent tickets') ||
+    q.includes('my tickets') ||
+    q.includes('show me tickets')
+  ) {
+    return {
+      widgetType: 'ticket-list',
+      widgetData: ticketListDemo,
+      responseText: "Here are the latest end user requests:",
     };
   }
 
@@ -1611,6 +1983,68 @@ function detectStakeholderLeadQuery(q: string): QueryMatch | null {
       widgetType: 'analytics-dashboard',
       widgetData: analyticsDashboardDemo,
       responseText: "Requirements traceability analytics showing coverage from business needs to implementation:",
+    };
+  }
+
+  // Top Performers / Performance Comparison (universal pattern)
+  if (
+    q.includes('top performers') ||
+    q.includes('bottom performers') ||
+    q.includes('who are my top') ||
+    q.includes('who are my best') ||
+    q.includes('performance comparison') ||
+    q.includes('compare performance')
+  ) {
+    return {
+      widgetType: 'agent-performance-comparison',
+      widgetData: agentPerformanceComparisonDemo,
+      responseText: "Team performance comparison shows top and bottom performers:",
+    };
+  }
+
+  // Response Composition (universal pattern)
+  if (
+    q.includes('draft response') ||
+    q.includes('draft a response') ||
+    q.includes('compose response') ||
+    q.includes('help me respond') ||
+    q.includes('draft message') ||
+    (q.includes('draft') && q.includes('outage'))
+  ) {
+    return {
+      widgetType: 'response-composer',
+      widgetData: responseComposerDemo,
+      responseText: "I've drafted a response for your review:",
+    };
+  }
+
+  // Urgent Issues / Access Issues (universal pattern)
+  if (
+    q.includes('urgent') ||
+    q.includes('access issue') ||
+    q.includes('most urgent') ||
+    (q.includes('open') && q.includes('issue'))
+  ) {
+    return {
+      widgetType: 'ticket-detail',
+      widgetData: ticketDetailDemo,
+      responseText: "Here are the details for the requested ticket:",
+    };
+  }
+
+  // End User Requests / Ticket List (universal pattern)
+  if (
+    q.includes('end user request') ||
+    q.includes('user request') ||
+    q.includes('latest request') ||
+    q.includes('recent tickets') ||
+    q.includes('my tickets') ||
+    q.includes('show me tickets')
+  ) {
+    return {
+      widgetType: 'ticket-list',
+      widgetData: ticketListDemo,
+      responseText: "Here are the latest end user requests:",
     };
   }
 
@@ -1702,6 +2136,68 @@ function detectProjectManagerQuery(q: string): QueryMatch | null {
       widgetType: 'sprint-burndown-chart',
       widgetData: sprintBurndownDemo,
       responseText: "Current project status shows sprint progress and delivery timeline:",
+    };
+  }
+
+  // Top Performers / Performance Comparison (universal pattern)
+  if (
+    q.includes('top performers') ||
+    q.includes('bottom performers') ||
+    q.includes('who are my top') ||
+    q.includes('who are my best') ||
+    q.includes('performance comparison') ||
+    q.includes('compare performance')
+  ) {
+    return {
+      widgetType: 'agent-performance-comparison',
+      widgetData: agentPerformanceComparisonDemo,
+      responseText: "Team performance comparison shows top and bottom performers:",
+    };
+  }
+
+  // Response Composition (universal pattern)
+  if (
+    q.includes('draft response') ||
+    q.includes('draft a response') ||
+    q.includes('compose response') ||
+    q.includes('help me respond') ||
+    q.includes('draft message') ||
+    (q.includes('draft') && q.includes('outage'))
+  ) {
+    return {
+      widgetType: 'response-composer',
+      widgetData: responseComposerDemo,
+      responseText: "I've drafted a response for your review:",
+    };
+  }
+
+  // Urgent Issues / Access Issues (universal pattern)
+  if (
+    q.includes('urgent') ||
+    q.includes('access issue') ||
+    q.includes('most urgent') ||
+    (q.includes('open') && q.includes('issue'))
+  ) {
+    return {
+      widgetType: 'ticket-detail',
+      widgetData: ticketDetailDemo,
+      responseText: "Here are the details for the requested ticket:",
+    };
+  }
+
+  // End User Requests / Ticket List (universal pattern)
+  if (
+    q.includes('end user request') ||
+    q.includes('user request') ||
+    q.includes('latest request') ||
+    q.includes('recent tickets') ||
+    q.includes('my tickets') ||
+    q.includes('show me tickets')
+  ) {
+    return {
+      widgetType: 'ticket-list',
+      widgetData: ticketListDemo,
+      responseText: "Here are the latest end user requests:",
     };
   }
 
@@ -1799,6 +2295,70 @@ function detectServiceTeamLeadQuery(q: string): QueryMatch | null {
       widgetType: 'agent-performance-comparison',
       widgetData: agentPerformanceComparisonDemo,
       responseText: "Team performance comparison shows individual contributions and efficiency metrics:",
+    };
+  }
+
+  // Top Performers / Performance Comparison (stakeholder feedback fix)
+  if (
+    q.includes('top performers') ||
+    q.includes('bottom performers') ||
+    q.includes('who are my top') ||
+    q.includes('who are my best') ||
+    q.includes('performance comparison') ||
+    q.includes('compare performance')
+  ) {
+    return {
+      widgetType: 'agent-performance-comparison',
+      widgetData: agentPerformanceComparisonDemo,
+      responseText: "Team performance comparison shows top and bottom performers:",
+    };
+  }
+
+  // Response Composition (stakeholder feedback fix)
+  if (
+    q.includes('draft response') ||
+    q.includes('draft a response') ||
+    q.includes('compose response') ||
+    q.includes('help me respond') ||
+    q.includes('draft message') ||
+    (q.includes('draft') && q.includes('outage'))
+  ) {
+    return {
+      widgetType: 'response-composer',
+      widgetData: responseComposerDemo,
+      responseText: "I've drafted a response for your review:",
+    };
+  }
+
+  // Ticket Detail / Urgent Issues (stakeholder feedback fix)
+  if (
+    q.includes('urgent') ||
+    q.includes('access issue') ||
+    q.includes('open ticket') ||
+    q.includes('most urgent') ||
+    (q.includes('open') && q.includes('issue')) ||
+    (q.includes('ticket') && (q.includes('detail') || q.includes('specific')))
+  ) {
+    return {
+      widgetType: 'ticket-detail',
+      widgetData: ticketDetailDemo,
+      responseText: "Here are the details for the requested ticket:",
+    };
+  }
+
+  // End User Requests / Ticket List (stakeholder feedback fix)
+  if (
+    q.includes('end user request') ||
+    q.includes('user request') ||
+    q.includes('latest request') ||
+    q.includes('recent tickets') ||
+    q.includes('my tickets') ||
+    q.includes('show me tickets')
+  ) {
+    return {
+      widgetType: 'ticket-list',
+      widgetData: ticketListDemo,
+      responseText: "Here are the latest end user requests:",
     };
   }
 
@@ -1949,6 +2509,68 @@ function detectServiceTeamMemberQuery(q: string): QueryMatch | null {
       widgetType: 'code-quality-dashboard',
       widgetData: codeQualityDemo,
       responseText: "Code quality issues in your recent commits:",
+    };
+  }
+
+  // Top Performers / Performance Comparison (universal pattern)
+  if (
+    q.includes('top performers') ||
+    q.includes('bottom performers') ||
+    q.includes('who are my top') ||
+    q.includes('who are my best') ||
+    q.includes('performance comparison') ||
+    q.includes('compare performance')
+  ) {
+    return {
+      widgetType: 'agent-performance-comparison',
+      widgetData: agentPerformanceComparisonDemo,
+      responseText: "Team performance comparison shows top and bottom performers:",
+    };
+  }
+
+  // Response Composition (universal pattern)
+  if (
+    q.includes('draft response') ||
+    q.includes('draft a response') ||
+    q.includes('compose response') ||
+    q.includes('help me respond') ||
+    q.includes('draft message') ||
+    (q.includes('draft') && q.includes('outage'))
+  ) {
+    return {
+      widgetType: 'response-composer',
+      widgetData: responseComposerDemo,
+      responseText: "I've drafted a response for your review:",
+    };
+  }
+
+  // Urgent Issues / Access Issues (universal pattern)
+  if (
+    q.includes('urgent') ||
+    q.includes('access issue') ||
+    q.includes('most urgent') ||
+    (q.includes('open') && q.includes('issue'))
+  ) {
+    return {
+      widgetType: 'ticket-detail',
+      widgetData: ticketDetailDemo,
+      responseText: "Here are the details for the requested ticket:",
+    };
+  }
+
+  // End User Requests / Ticket List (universal pattern)
+  if (
+    q.includes('end user request') ||
+    q.includes('user request') ||
+    q.includes('latest request') ||
+    q.includes('recent tickets') ||
+    q.includes('my tickets') ||
+    q.includes('show me tickets')
+  ) {
+    return {
+      widgetType: 'ticket-list',
+      widgetData: ticketListDemo,
+      responseText: "Here are the latest end user requests:",
     };
   }
 
