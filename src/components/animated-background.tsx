@@ -33,18 +33,26 @@ const BACKGROUND_IMAGES = [
 
 export function AnimatedBackground() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Set mounted state after hydration
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
+    if (!isMounted) return;
+
     // Rotate images every 15 seconds (50% longer)
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % BACKGROUND_IMAGES.length);
     }, 15000); // 15 seconds (50% increase)
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isMounted]);
 
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden" suppressHydrationWarning>
+    <div className="fixed inset-0 z-0 overflow-hidden">
       {/* Fallback gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-primary/10" />
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+// useState and useEffect removed - using ModeContext.isHydrated instead
 import { Building2, Users, Briefcase } from 'lucide-react';
 import { useMode } from '@/contexts/ModeContext';
 import { usePersona } from '@/hooks/use-persona';
@@ -13,20 +13,17 @@ import { PersonaType } from '@/types/persona';
  * Switches between Government, Project, and ATC modes.
  *
  * HYDRATION FIX (V20-OP3):
- * - Handles mounting state internally (no ClientOnly wrapper needed)
+ * - Uses isHydrated from ModeContext for consistency
  * - Shows visually identical skeleton during SSR to prevent "empty line" issue
  * - Skeleton has same dimensions and styling as actual buttons
  */
 export function ModeSwitcher() {
-  const [mounted, setMounted] = useState(false);
-  const { currentMode, setMode } = useMode();
+  const { currentMode, setMode, isHydrated } = useMode();
   const { setPersona } = usePersona();
   const router = useRouter();
 
-  // Set mounted after hydration completes
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // Use ModeContext's isHydrated instead of separate mounted state
+  const mounted = isHydrated;
 
   const handleModeSwitch = (mode: 'government' | 'project' | 'atc') => {
     if (mode === currentMode) return; // Already on this mode

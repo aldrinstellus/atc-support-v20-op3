@@ -14,16 +14,25 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  // Initialize with 'dark' as default - the inline script in layout.tsx
+  // will have already set the correct class on the html element before React hydrates
   const [theme, setThemeState] = useState<Theme>('dark');
   const [mounted, setMounted] = useState(false);
 
-  // Load theme from localStorage on mount
+  // Sync with actual DOM state and localStorage on mount
   useEffect(() => {
     setMounted(true);
-    const savedTheme = localStorage.getItem('sana-theme') as Theme | null;
-    if (savedTheme && (savedTheme === 'dark' || savedTheme === 'light')) {
-      setThemeState(savedTheme);
-      updateDocumentClass(savedTheme);
+    // Read the actual class set by the init script
+    const currentClass = document.documentElement.className;
+    if (currentClass === 'light' || currentClass === 'dark') {
+      setThemeState(currentClass);
+    } else {
+      // Fallback: check localStorage
+      const savedTheme = localStorage.getItem('sana-theme') as Theme | null;
+      if (savedTheme && (savedTheme === 'dark' || savedTheme === 'light')) {
+        setThemeState(savedTheme);
+        updateDocumentClass(savedTheme);
+      }
     }
   }, []);
 

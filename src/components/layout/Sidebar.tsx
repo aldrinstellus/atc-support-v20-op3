@@ -26,15 +26,12 @@ export function Sidebar({
 }: SidebarProps) {
   usePathname();
   const router = useRouter();
-  const { currentPersona, setPersona, availablePersonas } = usePersona();
+  const { currentPersona, setPersona, availablePersonas, isHydrated } = usePersona();
   const { messagesByPersona } = useConversation();
   const [personaSelectorOpen, setPersonaSelectorOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false);
 
-  // Fix hydration: Only show conversation data after client mount
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  // Use PersonaContext isHydrated instead of separate isClient state
+  const isClient = isHydrated;
 
   // Memoize current messages to avoid recalculating on every render
   const currentMessages = useMemo(

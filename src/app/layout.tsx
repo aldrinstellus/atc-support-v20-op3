@@ -36,14 +36,31 @@ export const metadata: Metadata = {
   },
 };
 
+// Script to set theme before React hydrates (prevents flash)
+const themeInitScript = `
+  (function() {
+    try {
+      var theme = localStorage.getItem('sana-theme');
+      if (theme === 'light' || theme === 'dark') {
+        document.documentElement.className = theme;
+      } else {
+        document.documentElement.className = 'dark';
+      }
+    } catch (e) {
+      document.documentElement.className = 'dark';
+    }
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="h-screen overflow-hidden bg-background font-sans antialiased">
         <SessionProvider>

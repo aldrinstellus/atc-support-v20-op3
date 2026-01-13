@@ -11,15 +11,10 @@ import { getDashboardWidgets, DashboardWidget } from '@/config/dashboard-widgets
 
 export function SplitViewWorkspace() {
   const { currentPersona } = usePersona();
-   
+
   const { sidebarOpen: _sidebarOpen } = useSidebar();
-  const [chatWidth, setChatWidth] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('split-view-chat-width');
-      return saved ? parseFloat(saved) : 60;
-    }
-    return 60;
-  });
+  const [chatWidth, setChatWidth] = useState(60);
+  const [isHydrated, setIsHydrated] = useState(false);
   const [chatCollapsed, setChatCollapsed] = useState(false);
   const [dashboardCollapsed, setDashboardCollapsed] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -27,12 +22,20 @@ export function SplitViewWorkspace() {
   const chatRef = useRef<InteractiveChatRef>(null);
   const widgets = getDashboardWidgets(currentPersona.id);
 
-  // Persist chat width
+  // Load chat width from localStorage after hydration
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('split-view-chat-width', chatWidth.toString());
+    const saved = localStorage.getItem('split-view-chat-width');
+    if (saved) {
+      setChatWidth(parseFloat(saved));
     }
-  }, [chatWidth]);
+    setIsHydrated(true);
+  }, []);
+
+  // Persist chat width (only after hydration to avoid loops)
+  useEffect(() => {
+    if (!isHydrated) return;
+    localStorage.setItem('split-view-chat-width', chatWidth.toString());
+  }, [chatWidth, isHydrated]);
 
   // Keyboard shortcuts
   useEffect(() => {

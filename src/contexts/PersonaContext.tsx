@@ -12,6 +12,7 @@ interface PersonaContextType {
   setPersona: (personaId: PersonaType) => void;
   availablePersonas: Persona[];
   isTransitioning: boolean;
+  isHydrated: boolean;
 }
 
 const PersonaContext = createContext<PersonaContextType | undefined>(undefined);
@@ -23,13 +24,21 @@ export function PersonaProvider({
   children: ReactNode;
   initialPersonaId?: PersonaType;
 }) {
-  const { currentMode, setMode } = useMode();
-  const [currentPersona, setCurrentPersona] = useState<Persona>(getDefaultPersona(currentMode));
+  const { currentMode, setMode, isHydrated: isModeHydrated } = useMode();
+  const [currentPersona, setCurrentPersona] = useState<Persona>(getDefaultPersona('government'));
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   // Load persona on mount - URL persona takes priority over localStorage
-  // HYDRATION FIX (V20-OP3): Also sync ModeContext when persona is loaded from URL
+  // HYDRATION FIX (V20-OP3): Wait for ModeContext to hydrate before syncing
   useEffect(() => {
+    // CRITICAL: Don't run until ModeContext is hydrated from localStorage
+    // This prevents the race condition where we sync to the wrong mode
+    if (!isModeHydrated) {
+      console.log('[PersonaContext] Waiting for ModeContext to hydrate...');
+      return;
+    }
+
     console.log('[PersonaContext] Loading persona - initialPersonaId:', initialPersonaId, 'currentMode:', currentMode);
 
     // Priority 1: Use initialPersonaId if provided (from URL/route)
@@ -49,6 +58,7 @@ export function PersonaProvider({
         }
 
         console.log('[PersonaContext] Loaded persona from URL:', persona.id, 'mode:', persona.mode);
+        setIsHydrated(true);
         return;
       }
     }
@@ -61,6 +71,7 @@ export function PersonaProvider({
       if (persona && persona.mode === currentMode) {
         setCurrentPersona(persona);
         console.log('[PersonaContext] Loaded persona from localStorage:', persona.id);
+        setIsHydrated(true);
         return;
       }
     }
@@ -70,7 +81,8 @@ export function PersonaProvider({
     setCurrentPersona(defaultPersona);
     localStorage.setItem(PERSONA_STORAGE_KEY, defaultPersona.id);
     console.log('[PersonaContext] Using default persona:', defaultPersona.id);
-  }, [currentMode, initialPersonaId, setMode]); // Re-run when mode or initialPersonaId changes
+    setIsHydrated(true);
+  }, [currentMode, initialPersonaId, setMode, isModeHydrated]); // Re-run when mode, hydration, or initialPersonaId changes
 
   // Change persona with transition
   const setPersona = useCallback(
@@ -102,6 +114,7 @@ export function PersonaProvider({
         setPersona,
         availablePersonas: getPersonasByMode(currentMode),
         isTransitioning,
+        isHydrated,
       }}
     >
       {children}

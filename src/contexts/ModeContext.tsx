@@ -8,6 +8,7 @@ const MODE_STORAGE_KEY = 'selected-mode';
 interface ModeContextType {
   currentMode: ModeType;
   setMode: (mode: ModeType) => void;
+  isHydrated: boolean;
 }
 
 const ModeContext = createContext<ModeContextType | undefined>(undefined);
@@ -53,7 +54,7 @@ export function ModeProvider({
   };
 
   return (
-    <ModeContext.Provider value={{ currentMode, setMode }}>
+    <ModeContext.Provider value={{ currentMode, setMode, isHydrated }}>
       {children}
     </ModeContext.Provider>
   );

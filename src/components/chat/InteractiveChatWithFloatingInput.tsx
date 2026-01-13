@@ -11,7 +11,7 @@ import { getDashboardWidgets } from '@/config/dashboard-widgets';
 import { ThemeToggle } from '@/components/layout/ThemeToggle';
 
 export function InteractiveChatWithFloatingInput() {
-  const { currentPersona } = usePersona();
+  const { currentPersona, isHydrated } = usePersona();
   const { sidebarOpen, toggleSidebar } = useSidebar();
   const { quickActionQuery, setQuickActionQuery } = useQuickAction();
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
@@ -73,6 +73,9 @@ export function InteractiveChatWithFloatingInput() {
     // Clear input
     setInputValue('');
   };
+
+  // Note: Hydration is now handled by HydrationGate in DemoLayout
+  // This component only renders after isHydrated is true
 
   return (
     <div className="relative h-full">

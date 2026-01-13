@@ -12,23 +12,27 @@ export function ChatWithDrawer() {
   const { currentPersona } = usePersona();
   const { sidebarOpen } = useSidebar();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isDrawerPinned, setIsDrawerPinned] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('dashboard-drawer-pinned') === 'true';
-    }
-    return false;
-  });
+  const [isDrawerPinned, setIsDrawerPinned] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const chatRef = useRef<InteractiveChatRef>(null);
   const widgets = getDashboardWidgets(currentPersona.id);
 
-  // Persist pin state
+  // Load pin state from localStorage after hydration
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('dashboard-drawer-pinned', isDrawerPinned.toString());
+    const saved = localStorage.getItem('dashboard-drawer-pinned');
+    if (saved === 'true') {
+      setIsDrawerPinned(true);
     }
-  }, [isDrawerPinned]);
+    setIsHydrated(true);
+  }, []);
+
+  // Persist pin state (only after hydration)
+  useEffect(() => {
+    if (!isHydrated) return;
+    localStorage.setItem('dashboard-drawer-pinned', isDrawerPinned.toString());
+  }, [isDrawerPinned, isHydrated]);
 
   // Keyboard shortcut: Cmd+Shift+D to toggle drawer
   useEffect(() => {

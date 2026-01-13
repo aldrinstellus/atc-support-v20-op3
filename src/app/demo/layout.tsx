@@ -6,26 +6,44 @@ import { Sidebar } from '@/components/layout/Sidebar';
 import { QuickActionProvider, useQuickAction } from '@/contexts/QuickActionContext';
 import { SidebarProvider } from '@/contexts/SidebarContext';
 import { ConversationProvider, useConversation } from '@/contexts/ConversationContext';
-import { PersonaProvider } from '@/contexts/PersonaContext';
+import { PersonaProvider, usePersona } from '@/contexts/PersonaContext';
 import { PersonaType } from '@/types/persona';
+import { DemoLoadingSkeleton } from '@/components/layout/DemoLoadingSkeleton';
+
+// Wrapper to check persona hydration and show skeleton
+function HydrationGate({ children }: { children: React.ReactNode }) {
+  const { isHydrated } = usePersona();
+
+  // Show skeleton until persona context is fully hydrated
+  if (!isHydrated) {
+    return <DemoLoadingSkeleton />;
+  }
+
+  return <>{children}</>;
+}
 
 function DemoLayoutContent({ children }: { children: React.ReactNode }) {
   const { setQuickActionQuery } = useQuickAction();
   const { clearAllConversations } = useConversation();
 
-  // Collapsible sidebar state with localStorage persistence
-  const [sidebarOpen, setSidebarOpen] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('sidebarOpen');
-      return saved !== null ? JSON.parse(saved) : true; // Default to open
-    }
-    return true;
-  });
+  // HYDRATION FIX: Always start with consistent default, load from localStorage in useEffect
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [isLayoutHydrated, setIsLayoutHydrated] = useState(false);
 
-  // Save sidebar state to localStorage
+  // Load sidebar state from localStorage AFTER hydration
   useEffect(() => {
+    const saved = localStorage.getItem('sidebarOpen');
+    if (saved !== null) {
+      setSidebarOpen(JSON.parse(saved));
+    }
+    setIsLayoutHydrated(true);
+  }, []);
+
+  // Save sidebar state to localStorage (only after hydration to prevent overwrite)
+  useEffect(() => {
+    if (!isLayoutHydrated) return;
     localStorage.setItem('sidebarOpen', JSON.stringify(sidebarOpen));
-  }, [sidebarOpen]);
+  }, [sidebarOpen, isLayoutHydrated]);
 
   // Keyboard shortcut: Cmd/Ctrl + B to toggle sidebar
   useEffect(() => {
@@ -83,7 +101,9 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
     <PersonaProvider initialPersonaId={personaId}>
       <ConversationProvider>
         <QuickActionProvider>
-          <DemoLayoutContent>{children}</DemoLayoutContent>
+          <HydrationGate>
+            <DemoLayoutContent>{children}</DemoLayoutContent>
+          </HydrationGate>
         </QuickActionProvider>
       </ConversationProvider>
     </PersonaProvider>
