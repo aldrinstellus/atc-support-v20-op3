@@ -25,42 +25,43 @@ const ConversationContext = createContext<ConversationContextType | undefined>(u
 
 export function ConversationProvider({ children }: { children: ReactNode }) {
   // Per-persona message storage with localStorage persistence
-  const [messagesByPersona, setMessagesByPersona] = useState<Record<string, Message[]>>(() => {
-    // Load from localStorage on mount
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem('messagesByPersona');
-        if (saved) {
-          const parsed = JSON.parse(saved) as Record<string, Array<Omit<Message, 'timestamp'> & { timestamp: string }>>;
-          // Convert ISO string dates back to Date objects
-          const converted: Record<string, Message[]> = {};
-          Object.keys(parsed).forEach(key => {
-            converted[key] = parsed[key].map((msg) => ({
-              ...msg,
-              timestamp: new Date(msg.timestamp),
-            }));
-          });
-          console.log('[ConversationContext] Loaded messages from localStorage:', converted);
-          return converted;
-        }
-      } catch (error) {
-        console.error('[ConversationContext] Failed to load messages from localStorage:', error);
-      }
-    }
-    return {};
-  });
+  // Initialize with empty object to avoid hydration mismatch
+  const [messagesByPersona, setMessagesByPersona] = useState<Record<string, Message[]>>({});
+  const [isHydrated, setIsHydrated] = useState(false);
 
-  // Save to localStorage whenever messagesByPersona changes
+  // Load from localStorage after hydration (client-side only)
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('messagesByPersona', JSON.stringify(messagesByPersona));
-        console.log('[ConversationContext] Saved messages to localStorage');
-      } catch (error) {
-        console.error('[ConversationContext] Failed to save messages to localStorage:', error);
+    try {
+      const saved = localStorage.getItem('messagesByPersona');
+      if (saved) {
+        const parsed = JSON.parse(saved) as Record<string, Array<Omit<Message, 'timestamp'> & { timestamp: string }>>;
+        // Convert ISO string dates back to Date objects
+        const converted: Record<string, Message[]> = {};
+        Object.keys(parsed).forEach(key => {
+          converted[key] = parsed[key].map((msg) => ({
+            ...msg,
+            timestamp: new Date(msg.timestamp),
+          }));
+        });
+        console.log('[ConversationContext] Loaded messages from localStorage:', converted);
+        setMessagesByPersona(converted);
       }
+    } catch (error) {
+      console.error('[ConversationContext] Failed to load messages from localStorage:', error);
     }
-  }, [messagesByPersona]);
+    setIsHydrated(true);
+  }, []);
+
+  // Save to localStorage whenever messagesByPersona changes (only after hydration)
+  useEffect(() => {
+    if (!isHydrated) return; // Don't save until hydrated to avoid overwriting with empty state
+    try {
+      localStorage.setItem('messagesByPersona', JSON.stringify(messagesByPersona));
+      console.log('[ConversationContext] Saved messages to localStorage');
+    } catch (error) {
+      console.error('[ConversationContext] Failed to save messages to localStorage:', error);
+    }
+  }, [messagesByPersona, isHydrated]);
 
   const clearAllConversations = () => {
     setMessagesByPersona({});

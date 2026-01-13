@@ -20,13 +20,16 @@ export function ModeProvider({
   initialMode?: ModeType;
 }) {
   const [currentMode, setCurrentMode] = useState<ModeType>(initialMode || 'government');
+  const [isHydrated, setIsHydrated] = useState(false);
 
   // Load from localStorage on mount (only if no initialMode provided)
+  // HYDRATION FIX (V20-OP3): Set isHydrated after loading to prevent save effect race
   useEffect(() => {
     if (initialMode) {
       // If initialMode is provided, use it and save to localStorage
       setCurrentMode(initialMode);
       localStorage.setItem(MODE_STORAGE_KEY, initialMode);
+      setIsHydrated(true);
       return;
     }
 
@@ -34,12 +37,15 @@ export function ModeProvider({
     if (savedMode && (savedMode === 'government' || savedMode === 'project' || savedMode === 'atc')) {
       setCurrentMode(savedMode);
     }
+    setIsHydrated(true);
   }, [initialMode]);
 
-  // Save to localStorage when mode changes
+  // Save to localStorage when mode changes (only after hydration)
+  // HYDRATION FIX (V20-OP3): Prevent overwriting saved value before load completes
   useEffect(() => {
+    if (!isHydrated) return;
     localStorage.setItem(MODE_STORAGE_KEY, currentMode);
-  }, [currentMode]);
+  }, [currentMode, isHydrated]);
 
   const setMode = (mode: ModeType) => {
     setCurrentMode(mode);
