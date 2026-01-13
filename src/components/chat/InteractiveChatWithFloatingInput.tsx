@@ -16,9 +16,18 @@ export function InteractiveChatWithFloatingInput() {
   const { quickActionQuery, setQuickActionQuery } = useQuickAction();
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [isMac, setIsMac] = useState(true); // Default to Mac, update on mount
   const inputRef = useRef<HTMLInputElement>(null);
   const chatRef = useRef<InteractiveChatRef>(null);
   const processingQueryRef = useRef<string | null>(null);
+
+  // Detect OS for keyboard shortcut display
+  useEffect(() => {
+    const platform = navigator.platform.toLowerCase();
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isMacOS = platform.includes('mac') || userAgent.includes('mac');
+    setIsMac(isMacOS);
+  }, []);
 
   // Get widgets from dashboard config
   const widgets = getDashboardWidgets(currentPersona.id);
@@ -79,7 +88,7 @@ export function InteractiveChatWithFloatingInput() {
         <button
           onClick={toggleSidebar}
           className="flex items-center justify-center rounded-lg border border-border bg-card p-2 hover:bg-muted transition-all"
-          title={`${sidebarOpen ? 'Close' : 'Open'} sidebar (⌘B)`}
+          title={`${sidebarOpen ? 'Close' : 'Open'} sidebar (${isMac ? '⌘B' : 'Ctrl+B'})`}
         >
           {sidebarOpen ? (
             <PanelLeftClose className="h-5 w-5 text-muted-foreground" />
@@ -123,7 +132,7 @@ export function InteractiveChatWithFloatingInput() {
             className="hidden sm:flex items-center gap-2 px-5 py-4 bg-primary text-primary-foreground rounded-full shadow-xl hover:shadow-2xl transition-all hover:scale-105 hover:bg-primary/90 whitespace-nowrap"
           >
             <span className="text-sm font-medium">Quick Launch</span>
-            <kbd className="hidden lg:inline px-2 py-1 bg-primary-foreground/20 rounded text-xs">⌘K</kbd>
+            <kbd className="hidden lg:inline px-2 py-1 bg-primary-foreground/20 rounded text-xs">{isMac ? '⌘K' : 'Ctrl+K'}</kbd>
           </button>
       </div>
 
