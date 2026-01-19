@@ -24,16 +24,9 @@ function getVersionDisplay(version: string, packageName: string): string {
 const versionDisplay = getVersionDisplay(packageJson.version, packageJson.name);
 
 export const metadata: Metadata = {
-  title: `EAS ${versionDisplay}`,
-  description: "Demo reference with mock data - Three personas: C-Level, CS Manager, Support Agent",
-  keywords: ["support", "ticketing", "AI", "dashboard", "analytics", "demo", "multi-persona"],
-  icons: {
-    icon: [
-      { url: '/ctis-logo-dark.png', type: 'image/png' },
-    ],
-    shortcut: '/ctis-logo-dark.png',
-    apple: '/ctis-logo-dark.png',
-  },
+  title: "dSQ | Support Portal",
+  description: "AI-powered enterprise support portal - Digital Workplace AI",
+  keywords: ["support", "ticketing", "AI", "dashboard", "analytics", "enterprise", "digital workplace"],
 };
 
 // Script to set theme before React hydrates (prevents flash)
