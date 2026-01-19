@@ -387,14 +387,22 @@ export function subscribeToConversationMessages(
  * Log an analytics event
  */
 export async function logAnalyticsEvent(event: Dsq.AnalyticsInsert) {
-  return dsq('analytics').insert(event);
+  if (!supabase) {
+    throw new Error('[Supabase] Client not available');
+  }
+  // @ts-expect-error - Schema typing for cross-schema tables
+  return supabase.from('dsq.analytics').insert(event);
 }
 
 /**
  * Log an activity
  */
 export async function logActivity(activity: Dsq.ActivityLogInsert) {
-  return dsq('activity_log').insert(activity);
+  if (!supabase) {
+    throw new Error('[Supabase] Client not available');
+  }
+  // @ts-expect-error - Schema typing for cross-schema tables
+  return supabase.from('dsq.activity_log').insert(activity);
 }
 
 // =============================================================================
