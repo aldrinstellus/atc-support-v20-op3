@@ -129,14 +129,20 @@ export async function getTicket(idOrNumber: string) {
  * Create a new ticket
  */
 export async function createTicket(ticket: Dsq.TicketInsert) {
-  return dsq('tickets').insert(ticket).select().single();
+  if (!supabase) {
+    throw new Error('[Supabase] Client not available');
+  }
+  return supabase.from('dsq.tickets').insert(ticket as any).select().single();
 }
 
 /**
  * Update a ticket
  */
 export async function updateTicket(id: string, updates: Partial<Dsq.Ticket>) {
-  return dsq('tickets').update(updates).eq('id', id).select().single();
+  if (!supabase) {
+    throw new Error('[Supabase] Client not available');
+  }
+  return supabase.from('dsq.tickets').update(updates as any).eq('id', id).select().single();
 }
 
 // =============================================================================
@@ -181,7 +187,10 @@ export async function getCustomer(idOrEmail: string) {
  * Create a new customer
  */
 export async function createCustomer(customer: Dsq.CustomerInsert) {
-  return dsq('customers').insert(customer).select().single();
+  if (!supabase) {
+    throw new Error('[Supabase] Client not available');
+  }
+  return supabase.from('dsq.customers').insert(customer as any).select().single();
 }
 
 // =============================================================================
