@@ -24,7 +24,7 @@ export function PersonaProvider({
   children: ReactNode;
   initialPersonaId?: PersonaType;
 }) {
-  const { currentMode, setMode, isHydrated: isModeHydrated } = useMode();
+  const { currentMode, isHydrated: isModeHydrated } = useMode();
   const [currentPersona, setCurrentPersona] = useState<Persona>(getDefaultPersona('government'));
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
@@ -49,14 +49,7 @@ export function PersonaProvider({
       if (persona) {
         setCurrentPersona(persona);
         localStorage.setItem(PERSONA_STORAGE_KEY, persona.id);
-
-        // CRITICAL FIX: Sync ModeContext with persona's mode when loaded from URL
-        // This ensures ModeSwitcher highlights the correct mode button
-        if (persona.mode !== currentMode) {
-          console.log('[PersonaContext] Syncing mode from persona:', persona.mode);
-          setMode(persona.mode);
-        }
-
+        // Mode sync removed - URL persona loads without changing global mode
         console.log('[PersonaContext] Loaded persona from URL:', persona.id, 'mode:', persona.mode);
         setIsHydrated(true);
         return;
@@ -82,7 +75,7 @@ export function PersonaProvider({
     localStorage.setItem(PERSONA_STORAGE_KEY, defaultPersona.id);
     console.log('[PersonaContext] Using default persona:', defaultPersona.id);
     setIsHydrated(true);
-  }, [currentMode, initialPersonaId, setMode, isModeHydrated]); // Re-run when mode, hydration, or initialPersonaId changes
+  }, [currentMode, initialPersonaId, isModeHydrated]); // Re-run when mode, hydration, or initialPersonaId changes
 
   // Change persona with transition
   const setPersona = useCallback(
