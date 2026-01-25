@@ -7,19 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [20.0.3] - 2025-01-25 - Demo Guide Query Detection Retest
+
+### Fixed
+- ✅ **Program Manager Q1**: "Show sprint burndown" now returns Contract Performance Dashboard
+- ✅ **Service Team Member Q1**: "Show my dashboard" now returns Agent Performance Stats
+- ✅ **ATC CSM Q2**: Added "at-risk customers" and "customers at risk" triggers for churn risk
+
+### Verified
+- **All 10 Personas**: 100% demo guide query success rate (14/14 queries)
+- **Universal Queries**: "Who are my top performers?" works across all personas
+
+### Test Results
+| Persona | Queries Tested | Status |
+|---------|----------------|--------|
+| COR | 2 | ✅ 100% |
+| Program Manager | 1 | ✅ 100% |
+| Stakeholder Lead | 1 | ✅ 100% |
+| Service Team Lead | 2 | ✅ 100% |
+| Service Team Member | 1 | ✅ 100% |
+| Project Manager | 1 | ✅ 100% |
+| ATC Executive | 1 | ✅ 100% |
+| ATC Manager | 2 | ✅ 100% |
+| ATC Support | 2 | ✅ 100% |
+| ATC CSM | 2 | ✅ 100% |
+
+---
+
 ## [Unreleased]
 
-### Fixed (2025-11-20 - Phase 1)
-- ✅ Support Agent can access Board Metrics (RBAC violation) - **RESOLVED**
-- ✅ Support Agent can access Churn Risk with ARR data (role confusion) - **RESOLVED**
-
-### Critical Issues to Fix (Pre-Demo)
-- Service Team Member can access Strategic Initiatives (role confusion)
-- Project Manager can access Code Quality metrics (role confusion)
-- Terminology inconsistencies across modes (customers vs contracts vs clients)
-
 ### Planned
-- Complete testing for remaining 5 personas (Government: 4, Project: 1)
 - Implement loading states for 30-45 second AI responses
 - Add prompt caching for faster response times
 - Standardize terminology across all modes

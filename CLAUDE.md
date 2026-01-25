@@ -471,6 +471,13 @@ All documentation is in `/docs/` organized into 15 categories:
 
 ## Recent Changes (V20-OP3)
 
+### v20.0.3 (2025-01-25) - Demo Guide Query Fixes
+- ✅ **All 10 personas verified**: 100% demo guide query success rate (14/14)
+- Fixed Program Manager "sprint burndown" query detection
+- Fixed Service Team Member "my dashboard" query detection
+- Added "at-risk customers" trigger for ATC CSM churn risk
+
+### Initial Setup
 - Cloned from V20-OP2 with all features
 - Port changed to 3030 (was 3020)
 - Browser tab displays "EAS V20-OP3"

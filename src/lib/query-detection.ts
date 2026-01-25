@@ -1799,6 +1799,19 @@ function detectCORQuery(q: string): QueryMatch | null {
 // ============================================================================
 
 function detectProgramManagerQuery(q: string): QueryMatch | null {
+  // PRIORITY 0: Sprint Burndown (Demo Guide Q1)
+  if (
+    q.includes('sprint burndown') ||
+    q.includes('burndown') ||
+    q.includes('sprint progress')
+  ) {
+    return {
+      widgetType: 'contract-performance-dashboard',
+      widgetData: contractPerformanceDemo,
+      responseText: "Contract performance dashboard displays program progress and sprint velocity metrics:",
+    };
+  }
+
   // Program Health → Stakeholder Engagement Dashboard
   if (
     q.includes('program health') ||
@@ -2386,7 +2399,20 @@ function detectServiceTeamLeadQuery(q: string): QueryMatch | null {
 function detectServiceTeamMemberQuery(q: string): QueryMatch | null {
   // IC-FOCUSED QUERIES ONLY (No strategic/program-level data)
 
-  // PRIORITY 0: Daily Update / Standup - task-focused dashboard
+  // PRIORITY 0: Show My Dashboard (Demo Guide Q1)
+  if (
+    q.includes('my dashboard') ||
+    q.includes('show dashboard') ||
+    (q.includes('show') && q.includes('dashboard'))
+  ) {
+    return {
+      widgetType: 'agent-performance-stats',
+      widgetData: agentPerformanceStatsDemo,
+      responseText: "Your personal performance dashboard shows metrics, tasks, and progress:",
+    };
+  }
+
+  // PRIORITY 1: Daily Update / Standup - task-focused dashboard
   if (
     q.includes('daily update') ||
     q.includes('standup') ||
@@ -2401,7 +2427,7 @@ function detectServiceTeamMemberQuery(q: string): QueryMatch | null {
     };
   }
 
-  // PRIORITY 1: My Assigned Requests / Tasks (Government context)
+  // PRIORITY 2: My Assigned Requests / Tasks (Government context)
   if (
     q.includes('my assigned') ||
     (q.includes('show') && q.includes('my') && q.includes('request')) ||

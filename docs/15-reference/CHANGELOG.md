@@ -4,6 +4,23 @@
 
 ---
 
+## [20.0.3] - January 25, 2025 - Demo Guide Retest
+
+### ✅ All Demo Guide Queries Verified (100% Pass Rate)
+
+**Query Detection Fixes**:
+- Program Manager: "sprint burndown" → Contract Performance Dashboard
+- Service Team Member: "my dashboard" → Agent Performance Stats
+- ATC CSM: Added "at-risk customers" trigger for churn risk
+
+**Verified Personas (14/14 queries)**:
+- COR, Program Manager, Stakeholder Lead (Government)
+- Service Team Lead, Service Team Member (Government)
+- Project Manager (Project)
+- ATC Executive, Manager, Support, CSM (ATC)
+
+---
+
 ## [14.0.0] - October 14, 2025 🏆
 
 ### ✨ Major Achievement: 100/100 Production Score!
